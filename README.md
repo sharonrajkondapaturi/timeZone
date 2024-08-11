@@ -2,6 +2,9 @@
 
 In this project we are going to set,choose,revrse and delect the time zone
 
+--> deployed using netlify 
+--> deployed link -> https://master--sharontimezone.netlify.app/
+
 --> required Third party package
     ---> query-string
     ---> moment-timezone
@@ -37,4 +40,6 @@ In this project we are going to set,choose,revrse and delect the time zone
 --> in this component we are using the to display the current time,date and delete button
 --> delete button is used to delete the current time with the help of filter function
 
-                                  IN ORDER TO UNDERSTAND MORE FUNCTIONS CHECK THE CODE WHICH I COMMENTED EACH FUNCTION 
+IN ORDER TO UNDERSTAND MORE FUNCTIONS CHECK THE CODE WHICH I COMMENTED EACH FUNCTION 
+
+                        https://master--sharontimezone.netlify.app/
