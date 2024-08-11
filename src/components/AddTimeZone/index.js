@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import moment from 'moment-timezone';
-import DatePicker from 'react-datepicker';
 import { IoMdAdd } from "react-icons/io";
 import { IoCameraReverse } from "react-icons/io5";
 import { AddTime,Select,Button,Option} from './styledComponents';
-import 'react-datepicker/dist/react-datepicker.css';
 
-const AddTimeZone = ({ onAdd,onReverse,currentTime,onTime}) => {
+
+const AddTimeZone = ({ onAdd,onReverse}) => {
   const [selectedTimeZone, setSelectedTimeZone] = useState('UTC');
 
   //Add time 
@@ -17,19 +16,9 @@ const AddTimeZone = ({ onAdd,onReverse,currentTime,onTime}) => {
   const onRev = () => {
     onReverse()
   }
-  //use to set time and date
-  const onHandleTime = () => {
-    onTime()
-  }
 
   return (
     <AddTime>
-        <DatePicker
-          selected={currentTime.toDate()}
-          onChange={onHandleTime}
-          showTimeSelect
-          dateFormat="Pp"
-        />
       <Select value={selectedTimeZone} onChange={(e) => setSelectedTimeZone(e.target.value)}>
         {moment.tz.names().map((zone) => (
           <Option key={zone} value={zone}>{zone}</Option>
