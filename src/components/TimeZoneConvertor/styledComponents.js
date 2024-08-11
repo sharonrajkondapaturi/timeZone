@@ -144,7 +144,7 @@ export const HamList = style.div`
 }
 @media screen and (max-width:767px){
     background-color:#ffffff;
-    height:80px;
+    height:100px;
     width:200px;
     align-self:flex-end;
     align-content:flex-start;
