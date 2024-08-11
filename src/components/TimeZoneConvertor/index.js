@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import moment from 'moment-timezone';
+import DatePicker from 'react-datepicker';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import TimeZoneDisplay from '../TimeZoneDisplay';
 import AddTimeZone from '../AddTimeZone';
 import { CiLight,CiDark,CiLink,CiPause1} from "react-icons/ci";
 import { GrSchedule,GrResume} from "react-icons/gr";
 import { GiHamburgerMenu } from "react-icons/gi";
+import 'react-datepicker/dist/react-datepicker.css';
 import {Background,Heading,Unlist,NavBar,Mode,ExtraButtons,Rows,Button,HamList,SmallButton,Image,Ham,NavRows} from './styledComponents'
 
 
@@ -18,7 +20,8 @@ class TimeZoneConverter extends Component {
       currentTime: moment(),
       isDark:false,
       isRunning:true,
-      isHam:false
+      isHam:false,
+      manualTimeSet: false,
     };
   }
 
@@ -28,11 +31,14 @@ class TimeZoneConverter extends Component {
   }
 
   //set Timer for every second
-  onTimer = ()=>{
-    this.timerId = setInterval(()=>{
-      this.setState({currentTime:moment(),isRunning:true})
-    },1000)
-  }
+  onTimer = () => {
+    this.timerId = setInterval(() => {
+      const { manualTimeSet } = this.state;
+      if (!manualTimeSet) {
+        this.setState({ currentTime: moment() });
+      }
+    }, 1000);
+  };
  
   //component will unMount
   componentWillUnmount(){
@@ -65,9 +71,15 @@ class TimeZoneConverter extends Component {
  
   //select the time and date 
   handleTimeChange = (date) => {
-    this.setState({ currentTime: moment(date) });
+    this.onPause(); // Pause the timer when user manually changes the time
+    this.setState({ currentTime: moment(date), manualTimeSet: true });
   };
   
+  //manually changes when we change the date and time
+  onTimerResume = () => {
+    this.setState({ isRunning: true, manualTimeSet: false }, this.onTimer);
+  };
+
   //drag function from the package dnd
   onDragEnd = (result) => {
     if (!result.destination) return;
@@ -135,7 +147,7 @@ class TimeZoneConverter extends Component {
         </ExtraButtons>
         <Mode type="button" onClick={this.onMode} color={isDark}>
         {isDark?
-        <CiLight size={30}/>:<CiDark size={30}/>}
+        <CiDark size={30}/>:<CiLight size={30}/>}
         </Mode>
         <Ham color={isDark}onClick={this.onHam}>
            <GiHamburgerMenu />
@@ -154,15 +166,20 @@ class TimeZoneConverter extends Component {
         </SmallButton>
       </HamList>:null}
         <Rows>
+        <DatePicker
+          selected={currentTime.toDate()}
+          onChange={this.handleTimeChange}
+          showTimeSelect
+          dateFormat="Pp"
+        />
         <AddTimeZone onAdd={this.handleTimeZoneAddition} 
         onReverse={this.onReverse} 
-        currentTime={currentTime} 
         onTime={this.handleTimeChange}/>
         {isRunning?<Button type="button" color="#eb7434" onClick={this.onPause}>
         <CiPause1 size={15} fill="#ffffff" style={{marginRight:10,paddingRight:10,borderRight:"1px solid #ffffff"}}/>
           Pause
         </Button>:
-        <Button type="button" color="#3edea3" onClick={this.onTimer}>
+        <Button type="button" color="#3edea3" onClick={this.onTimerResume}>
         <GrResume size={15} fill="#ffffff" style={{marginRight:10,paddingRight:10,borderRight:"1px solid #ffffff"}}/>
           Resume
         </Button>
