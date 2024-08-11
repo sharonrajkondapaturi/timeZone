@@ -31,6 +31,7 @@ In this project we are going to set,choose,revrse and delect the time zone
 --> in the nabar we are having two options share and ham option is used in mobile display (media query)
 --> in this component we are having share link options to share the link and schedule meet(google calender) is used to schedule google calender
 --> toggle-mode is used in order to toggle light or dark mode
+--> we have used react-date-picker in order to check the timeline of the countries
 
 ### AddTimeZone
 --> addTimeZone component is used to add time,date,reverse timezone and resume or pause option
