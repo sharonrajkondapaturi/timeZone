@@ -147,7 +147,7 @@ class TimeZoneConverter extends Component {
         </ExtraButtons>
         <Mode type="button" onClick={this.onMode} color={isDark}>
         {isDark?
-        <CiDark size={30}/>:<CiLight size={30}/>}
+        <CiLight size={30}/>:<CiDark size={30}/>}
         </Mode>
         <Ham color={isDark}onClick={this.onHam}>
            <GiHamburgerMenu />
